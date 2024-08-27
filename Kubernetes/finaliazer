@@ -1,0 +1,30 @@
+what is finaliazer in kubernetes
+
+In Kubernetes, a finalizer is a concept used to manage the clean-up of resources before they are permanently deleted. Finalizers are specified in the metadata of Kubernetes objects and ensure that specific cleanup logic is executed before the object is fully removed from the cluster.
+
+Here’s a general overview of how finalizers work:
+
+Finalizer List: Each Kubernetes resource can have a list of finalizers in its metadata. When the resource is marked for deletion, Kubernetes will not immediately delete it. Instead, it will first execute the logic defined by the finalizers in this list.
+
+Custom Resource Finalizers: Finalizers can be custom-defined by users or controllers. They provide a way to run cleanup operations or perform tasks before the resource is actually deleted. For instance, a finalizer might be used to delete associated resources or to perform any necessary data cleanup.
+
+Deletion Process:
+
+When a resource is deleted, Kubernetes marks it with a deletion timestamp and starts a finalization process.
+The resource remains in a “terminating” state while the finalizers are executed.
+Once all finalizers have completed their tasks and are removed from the resource, Kubernetes will complete the deletion of the resource.
+Controller Interaction: Controllers often handle finalizers. For example, a custom controller might check if a finalizer is present, perform the necessary actions (like cleaning up related resources), and then remove the finalizer once done. If the finalizer isn’t removed, Kubernetes will keep the resource in the “terminating” state, preventing its complete deletion.
+
+Example: Here’s a simple example of how finalizers are specified in a Kubernetes resource:
+
+yaml
+Copy code
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: example-deployment
+  finalizers:
+    - example.com/my-finalizer
+spec:
+  ...
+In this example, the example.com/my-finalizer finalizer would need to be processed before the Deployment is fully deleted.
