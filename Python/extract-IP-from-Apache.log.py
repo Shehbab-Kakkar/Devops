@@ -27,8 +27,10 @@ if __name__ == "__main__":
             print(ip)
     else:
         print("No 403 errors found.")
-""""""
+
+
+"""
 Output
 IP addresses with 403 errors:
 10.0.0.15
-""""""
+"""
