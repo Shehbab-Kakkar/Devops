@@ -1,4 +1,4 @@
-#Progam to convert JSON to CSV
+#Convert JSON to CSV
 import json
 import csv
 
