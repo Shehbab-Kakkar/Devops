@@ -1,0 +1,3 @@
+Port=8080
+ServerName=example.com
+VirtualDomain=virtual.example.com
